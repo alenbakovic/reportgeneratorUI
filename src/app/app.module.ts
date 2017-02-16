@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
+import { RGFileList } from './file-chooser/app.file-list'
 
 @NgModule({
   declarations: [
     AppComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    RGFileList
   ],
   imports: [
     BrowserModule,
