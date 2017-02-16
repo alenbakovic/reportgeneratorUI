@@ -1,3 +1,17 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+
+  <div class="jumbotron">
+    <h1>{{title}}</h1>
+  </div>
+
+  <form>
+    <div class="form-group">
+      <label for="files" class="btn btn-primary">Select Files</label>
+      <input type="file" multiple visibility="hidden" id="files" name='fileUpload' ng2FileSelect [uploader]="uploader" style="display: none">
+    </div>
+    <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+      <span class="glyphicon glyphicon-upload"></span>Upload all
+    </button>
+  </form>
+
+</div>
