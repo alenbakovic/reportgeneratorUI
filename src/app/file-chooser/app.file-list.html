@@ -1,13 +1,50 @@
 <div class="container">
 
-  <form>
-    <div class="form-group">
-      <label for="files" class="btn btn-primary">Select Files</label>
-      <input type="file" multiple visibility="hidden" id="files" name='fileUpload' ng2FileSelect [uploader]="uploader" style="display: none">
+  <div class="form-group">
+    <label for="files" class="btn btn-primary">Select Files</label>
+    <input type="file" multiple visibility="hidden" id="files" name='fileUpload' ng2FileSelect [uploader]="uploader" style="display: none">
+  </div>
+
+  <h2>{{filesToUpload}}</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of tableHeader">{{header}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of uploader.queue">
+        <td><strong>{{ item?.file?.name }}</strong></td>
+        <td>{{ item?.file?.size/1024 | number:'.2' }} KB</td>
+        <td class="text-left">
+          <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+          <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+          <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+        </td>
+        <td nowrap>
+          <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+            <span class="glyphicon glyphicon-trash"></span>Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <div> {{progress}}
+      <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+      </div>
     </div>
+
     <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
       <span class="glyphicon glyphicon-upload"></span>Upload all
     </button>
-  </form>
+
+    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+      <span class="glyphicon glyphicon-trash"></span> Remove all
+    </button>
+  </div>
 
 </div>
