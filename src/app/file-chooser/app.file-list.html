@@ -31,6 +31,12 @@
     </tbody>
   </table>
 
+  <div class="alert alert-success" *ngIf="uploadSucess">
+    <strong>Success!</strong>
+    Files successifully uploaded to server. You can now download report files.
+    <label class="btn btn-primary" (click)="startFileDownload()">Download Report Files</label>
+  </div>
+
   <div>
     <div> {{progress}}
       <div class="progress" style="">
@@ -38,17 +44,13 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+    <button type="button" class="btn btn-success btn-s" (click)="uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
       <span class="glyphicon glyphicon-upload"></span>Upload all
     </button>
 
-    <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+    <button type="button" class="btn btn-danger btn-s" (click)="removeAll()" [disabled]="!uploader.queue.length">
       <span class="glyphicon glyphicon-trash"></span> Remove all
     </button>
-  </div>
-
-  <div class="alert alert-success">
-    <strong>Success!</strong> Files successifully uploaded to server. You can now download report files.
   </div>
 
 </div>
